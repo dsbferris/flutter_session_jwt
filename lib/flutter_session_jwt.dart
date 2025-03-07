@@ -1,5 +1,3 @@
-library flutter_session_jwt;
-
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -37,10 +35,7 @@ class FlutterSessionJwt {
     if (jwtToken.split(".").length != 3) {
       throw const FormatException("Invalid token");
     } else {
-      await _storage.write(
-        key: _keyJwtToken,
-        value: jwtToken,
-      );
+      await _storage.write(key: _keyJwtToken, value: jwtToken);
     }
   }
 
@@ -63,10 +58,12 @@ class FlutterSessionJwt {
     final token = await _getJwtToken();
     if (token == "" || token == null) {
       throw const FormatException(
-          'Invalid token : Please save valid jwt token');
+        'Invalid token : Please save valid jwt token',
+      );
     } else {
-      final splitTheToken =
-          token.toString().split("."); // Split the token by '.'
+      final splitTheToken = token.toString().split(
+        ".",
+      ); // Split the token by '.'
       if (splitTheToken.length != 3) {
         //after splitting if array length is not equal to 3, thow invalid token
         throw const FormatException('Invalid token');
