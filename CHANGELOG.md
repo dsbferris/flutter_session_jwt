@@ -29,3 +29,12 @@ Added method `retriveToken()` to get the saved token
 ## 0.0.8
 
 Added method `deleteToken()` to delete the saved token
+
+# 0.0.9
+
+Fix getExpirationDateTime async/await logic
+Cleanup namings
+Add explicit types wherever possible
+Unify comment structure
+Bring README.md up-to-date with deleteToken implementation
+Upgrade FlutterSecureStorage to 10.0.0-beta.4
