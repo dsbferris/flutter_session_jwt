@@ -2,6 +2,7 @@ name: flutter_session_jwt
 description: A flutter package which makes easy to use JWT token to store and get details encoded in JWT Token.
 version: 0.0.9
 repository: https://github.com/dsbferris/flutter_session_jwt
+publish_to: none
 
 environment:
   sdk: ^3.7.0
@@ -11,6 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_secure_storage: ^10.0.0-beta.4
+  jaguar_jwt_lite:
+    git:
+      url: https://github.com/dsbferris/jaguar_jwt_lite.git
+      ref: 1.1.0+0 # branch name/commit hash/tag
+
 
 dev_dependencies:
   flutter_test:
