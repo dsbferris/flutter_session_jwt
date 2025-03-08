@@ -32,7 +32,7 @@ class FlutterSessionJwt {
   /// It accepts ```String``` and saves the token with advanced encyption.
   /// Keychain is used for iOS. AES encryption is used for Android.
   /// AES secret key is encrypted with RSA and RSA key is stored in KeyStore
-  Future save() => _storage.write(key: _keyJwtToken, value: token);
+  Future<void> save() => _storage.write(key: _keyJwtToken, value: token);
 
   /// Retrieves the JWT token from storage.
   /// Returns token as ```String``` if token is saved in storage or ```null```, otherwise.
