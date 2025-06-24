@@ -30,15 +30,15 @@ Added method `retriveToken()` to get the saved token
 
 Added method `deleteToken()` to delete the saved token
 
-# 0.0.9
+## 1.0.0
 
-Fix getExpirationDateTime async/await logic  
-Cleanup namings  
-Add explicit types wherever possible  
-Unify comment structure  
-Bring README.md up-to-date with deleteToken implementation  
-Upgrade FlutterSecureStorage to 10.0.0-beta.4  
-Upgrade Dart and Flutter requirement  
-Remove example  
-Remove assets  
-Fix what is tracked in git repo  
+Cleanup code structure, namings and comments
+
+## 1.1.0
+
+Added comprehensive error handling:
+- Introduced custom `JwtException` and `JwtStorageException` classes
+- Added detailed error messages for all operations
+- Improved token validation and format verification
+- Enhanced error handling for payload decoding
+- Added proper error catching for storage operations
