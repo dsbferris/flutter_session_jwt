@@ -41,9 +41,12 @@ class FlutterSessionJwt {
     }
   }
 
-  static Future<DateTime?> _getTokenDate({required String param}) async {
+  static Future<DateTime?> _getTokenDate(
+    String token, {
+    required String param,
+  }) async {
     try {
-      final decodedToken = await getPayload();
+      final decodedToken = await getPayload(token);
       final date = decodedToken[param] as int?;
       if (date == null) {
         return null;
@@ -88,7 +91,7 @@ class FlutterSessionJwt {
   ///
   ///```Note:```
   ///Make sure to save token using ```FlutterSessionJwt.saveToken("token here")``` method before using other methods
-  static Future<String?> retrieveToken() async {
+  static Future<String?> loadToken() async {
     try {
       return await _getJwtToken();
     } catch (e) {
@@ -104,10 +107,9 @@ class FlutterSessionJwt {
   //////Throws [JwtException] if no valid JWT token is stored, it's malformed or its payload cannot be decoded.
   ///```Note:```
   ///Make sure to save token using ```FlutterSessionJwt.saveToken("token here")``` method before using other methods
-  static Future<Map<String, dynamic>> getPayload() async {
+  static Future<Map<String, dynamic>> getPayload(String token) async {
     try {
-      final token = await _getJwtToken();
-      if (token == null || token.isEmpty) {
+      if (token.isEmpty) {
         throw const JwtException(
           'No token found: Please save a valid JWT token first',
         );
@@ -143,9 +145,9 @@ class FlutterSessionJwt {
   ///
   ///```Note:```
   ///Make sure to save token using ```FlutterSessionJwt.saveToken("token here")``` method before using other methods
-  static Future<bool> isTokenExpired() async {
+  static Future<bool> isTokenExpired(String token) async {
     try {
-      final expirationDate = await getExpirationDateTime();
+      final expirationDate = await getExpirationDateTime(token);
       if (expirationDate == null) {
         throw const JwtException('No expiration date found in token');
       }
@@ -165,9 +167,9 @@ class FlutterSessionJwt {
   ///
   ///```Note:```
   ///Make sure to save token using ```FlutterSessionJwt.saveToken("token here")``` method before using other methods
-  static Future<DateTime?> getExpirationDateTime() async {
+  static Future<DateTime?> getExpirationDateTime(String token) async {
     try {
-      return await _getTokenDate(param: 'exp');
+      return await _getTokenDate(token, param: 'exp');
     } catch (e) {
       if (e is JwtException) rethrow;
       throw JwtException('Failed to get expiration date', e);
@@ -182,9 +184,9 @@ class FlutterSessionJwt {
   ///
   ///```Note:```
   ///Make sure to save token using ```FlutterSessionJwt.saveToken("token here")``` method before using other methods
-  static Future<DateTime?> getIssuedDateTime() async {
+  static Future<DateTime?> getIssuedDateTime(String token) async {
     try {
-      return await _getTokenDate(param: 'iat');
+      return await _getTokenDate(token, param: 'iat');
     } catch (e) {
       if (e is JwtException) rethrow;
       throw JwtException('Failed to get issue date', e);
@@ -194,9 +196,9 @@ class FlutterSessionJwt {
   /// Returns the ```Duration``` since the JWT token's issue.
   ///
   ///Returns null if issued date is not found in payload.
-  static Future<Duration?> getDurationFromIssuedTime() async {
+  static Future<Duration?> getDurationFromIssuedTime(String token) async {
     try {
-      final issuedAtDate = await getIssuedDateTime();
+      final issuedAtDate = await getIssuedDateTime(token);
       if (issuedAtDate == null) {
         return null;
       }
